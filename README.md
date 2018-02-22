@@ -7,9 +7,9 @@ Prerequisites:
  - Yarn  
   
 To use this project to this point clone the repository and run  
-`yarn`
-`yarn start`
-To build for production enviroment use
+`yarn`  
+`yarn start`  
+To build for production enviroment use  
 `yarn build`
 
 ## Frameworks used:
