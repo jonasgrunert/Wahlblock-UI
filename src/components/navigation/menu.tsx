@@ -1,19 +1,39 @@
-import { Menu, MenuLabel, MenuLink, MenuList } from "bloomer";
+import { Icon, Image, Menu, MenuLink, MenuList, Subtitle, Title } from "bloomer";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { push as SideBar } from "react-burger-menu";
+import {decorator as reduxBurgerMenu} from "redux-burger-menu";
 
-export const AdminMenu = () =>
+import { burgerMenuStyles } from "../../config/burgerMenuStyles";
+import { menuLinks } from "../../config/menuLink";
+import { NavLinkWrapper } from "./navLinkWrapper";
+
+const Links = menuLinks.map((link) => {
+  return (
+    <NavLinkWrapper link={link.link} name={link.name} />
+  );
+});
+
+const AdminMenu = () =>
   <Menu>
-    <MenuLabel>Elections</MenuLabel>
     <MenuList>
-      <li><MenuLink><Link to="/vote/legalize-it">Legalize it!</Link></MenuLink></li>
+      { Links }
     </MenuList>
-    <MenuLabel>Outcomes</MenuLabel>
-    <MenuList>
-      <li><MenuLink><Link to="/election/legalize-it">Legalize it!</Link></MenuLink></li>
-    </MenuList>
-    <MenuLabel>Stats for Nerds</MenuLabel>
-      <MenuList>
-        <li><MenuLink><Link to="/stats">Stats I</Link></MenuLink></li>
-      </MenuList>
   </Menu>;
+
+
+export const SideMenu = () =>
+  <SideBar
+    pageWrapId={"main"}
+    outerContainerId={"outer-container"}
+    styles={burgerMenuStyles}
+    customBurgerIcon={
+      <div>
+        <Icon isDisplay="inline" isSize="medium" className="fa fa-bars fa-2x" />
+        <Title isDisplay="inline" isSize={3}>&nbsp;Wahlblock</Title>
+      </div>
+    }
+  >
+    <AdminMenu />
+  </SideBar>;
+
+export default reduxBurgerMenu(SideMenu);
