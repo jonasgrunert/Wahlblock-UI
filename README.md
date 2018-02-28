@@ -20,5 +20,5 @@ To build for production enviroment use
  - React
  - Redux
  - React-Router
- - Typescript
+ - Babel
  - Webpack
