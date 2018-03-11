@@ -1,9 +1,18 @@
-import { Container, Title } from 'bloomer';
+import { Box, Column, Columns, Container, Title } from 'bloomer';
 import * as React from 'react';
 
-const Main = props => (
+import LoginForm from '../forms/loginForm';
+
+const Main = () => (
   <Container hasTextAlign="centered">
-    <Title>{props.match.params.url}</Title>
+    <Columns isCentered>
+      <Column isSize="1/2">
+        <Box hasTextAlign="left">
+          <Title hasTextColor="primary">Login</Title>
+          <LoginForm onSubmit={values => (true)} />
+        </Box>
+      </Column>
+    </Columns>
   </Container>
 );
 

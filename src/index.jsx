@@ -10,6 +10,7 @@ import { applyMiddleware, createStore } from 'redux';
 import Main from './components/main/main';
 import MainMenu from './components/navigation/menu';
 import reducer from './reducers/reducers';
+import menuLinks from './config/menuLink';
 
 const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
@@ -21,7 +22,7 @@ ReactDOM.render(
       <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
         <MainMenu />
         <HeroBody id="main" isFullWidth isMarginless isPaddingless>
-          <Route path="/:url" component={Main} />
+          <Route path="/" exact component={Main} />
         </HeroBody>
       </Hero>
     </ConnectedRouter>

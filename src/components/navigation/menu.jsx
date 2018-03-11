@@ -1,26 +1,33 @@
 import { Icon, Menu, MenuList, Title } from 'bloomer';
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { push as SideBar } from 'react-burger-menu';
 import { decorator as reduxBurgerMenu } from 'redux-burger-menu';
 
 import burgerMenuStyles from '../../config/burgerMenuStyles';
-import menuLinks from '../../config/menuLink';
 import NavLinkWrapper from './navLinkWrapper';
 
-const Links = menuLinks.map(link => (
-  <NavLinkWrapper link={link.link} name={link.name} />
-));
+const Links = menuConfig => (
+  menuConfig.map(link => (<NavLinkWrapper link={link.link} name={link.name} />))
+);
 
-const AdminMenu = () => (
+const AdminMenu = props => (
   <Menu>
     <MenuList>
-      { Links }
+      { Links(props.routesConfig) }
     </MenuList>
   </Menu>
 );
 
+AdminMenu.propTypes = {
+  routesConfig: PropTypes.arrayOf(PropTypes.shape({
+    exact: PropTypes.bool,
+    link: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
+};
 
-const SideMenu = () => (
+const SideMenu = props => (
   <SideBar
     isOpen={false}
     pageWrapId="main"
@@ -33,9 +40,17 @@ const SideMenu = () => (
       </div>
     }
   >
-    <AdminMenu />
+    <AdminMenu routesConfig={props.routesConfig} />
   </SideBar>
 );
+
+SideMenu.propTypes = {
+  routesConfig: PropTypes.arrayOf(PropTypes.shape({
+    exact: PropTypes.bool,
+    link: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
+};
 
 const MainMenu = reduxBurgerMenu(SideMenu);
 export default MainMenu;
