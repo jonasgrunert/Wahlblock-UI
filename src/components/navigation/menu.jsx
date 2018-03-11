@@ -1,4 +1,4 @@
-import { Icon, Menu, MenuList, Title } from 'bloomer';
+import { Container, Icon, Menu, MenuLabel, MenuList, Title } from 'bloomer';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { push as SideBar } from 'react-burger-menu';
@@ -11,10 +11,19 @@ const Links = menuConfig => (
   menuConfig.map(link => (<NavLinkWrapper link={link.link} name={link.name} />))
 );
 
+const SubMenus = menuConfig => (
+  menuConfig.map(subMenu => (
+    <Container isFluid style={{ margin: '1em' }}>
+      <MenuLabel>{subMenu.title}</MenuLabel>
+      <MenuList>{Links(subMenu.links)}</MenuList>
+    </Container>
+  ))
+);
+
 const AdminMenu = props => (
   <Menu>
     <MenuList>
-      { Links(props.routesConfig) }
+      { SubMenus(props.routesConfig) }
     </MenuList>
   </Menu>
 );
@@ -36,7 +45,7 @@ const SideMenu = props => (
     customBurgerIcon={
       <div>
         <Icon isDisplay="inline" isSize="medium" className="fa fa-bars fa-2x" />
-        <Title isDisplay="inline" isSize={3}>&nbsp;Wahlblock</Title>
+        <Title isDisplay="inline" isSize={3}>&nbsp;{props.title}</Title>
       </div>
     }
   >
@@ -50,6 +59,7 @@ SideMenu.propTypes = {
     link: PropTypes.string,
     name: PropTypes.string,
   })).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 const MainMenu = reduxBurgerMenu(SideMenu);
