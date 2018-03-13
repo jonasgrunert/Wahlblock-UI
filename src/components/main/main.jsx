@@ -1,7 +1,7 @@
 import { Box, Column, Columns, Container, Title } from 'bloomer';
 import * as React from 'react';
 
-import LoginForm from '../forms/loginForm';
+import LoginFormContainer from '../forms/loginForm';
 
 const Main = () => (
   <Container hasTextAlign="centered">
@@ -9,7 +9,7 @@ const Main = () => (
       <Column isSize="1/2">
         <Box hasTextAlign="left">
           <Title hasTextColor="primary">Login</Title>
-          <LoginForm onSubmit={values => (true)} />
+          <LoginFormContainer />
         </Box>
       </Column>
     </Columns>
