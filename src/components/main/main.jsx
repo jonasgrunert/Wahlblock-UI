@@ -1,4 +1,4 @@
-import { Box, Column, Columns, Container, Title } from 'bloomer';
+import { Box, Column, Columns, Container, Notification, Title } from 'bloomer';
 import * as React from 'react';
 
 import LoginFormContainer from '../forms/loginForm';
@@ -9,6 +9,9 @@ const Main = () => (
       <Column isSize="1/2">
         <Box hasTextAlign="left">
           <Title hasTextColor="primary">Login</Title>
+          <Notification isColor="danger">
+            Once logged in on one device you have to complete the vote process.
+          </Notification>
           <LoginFormContainer />
         </Box>
       </Column>

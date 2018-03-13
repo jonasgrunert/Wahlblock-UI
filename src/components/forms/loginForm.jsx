@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: () => dispatch(push('/btw17/vote')),
+  handleSubmit: () => dispatch(push('/btw17/vote')),
 });
 
 const LoginFormContainer = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
