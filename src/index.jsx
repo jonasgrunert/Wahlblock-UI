@@ -9,6 +9,9 @@ import { applyMiddleware, createStore } from 'redux';
 
 import './config/wahlblockStyles.scss';
 import Main from './components/main/main';
+import InfoContainer from './components/main/info';
+import { Outcome } from './components/main/outcome';
+import { Stats } from './components/main/stats';
 import MainMenu from './components/navigation/menu';
 import reducer from './reducers/reducers';
 import menuLinks from './config/menuLink';
@@ -23,7 +26,10 @@ ReactDOM.render(
       <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
         <MainMenu routesConfig={menuLinks} title="Wahlblock" />
         <HeroBody id="main" isFullWidth isMarginless isPaddingless>
+          <Route path="/:election" exact component={InfoContainer} />
           <Route path="/:election/login" exact component={Main} />
+          <Route path="/:election/outcome" exact component={Outcome} />
+          <Route path="/:election/stats" exact component={Stats} />
         </HeroBody>
       </Hero>
     </ConnectedRouter>
