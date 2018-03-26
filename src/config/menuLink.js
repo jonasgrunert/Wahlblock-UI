@@ -9,17 +9,17 @@ const menuLinks = [
       },
       {
         exact: true,
-        link: '/bwt17/login',
+        link: '/btw17/login',
         name: 'Vote now',
       },
       {
         exact: true,
-        link: '/bwt17/outcome',
+        link: '/btw17/outcome',
         name: 'Outcomes',
       },
       {
         exact: true,
-        link: '/bwt17/stats',
+        link: '/btw17/stats',
         name: 'Stats for nerds',
       },
     ],

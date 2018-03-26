@@ -1,8 +1,12 @@
-import { Box, Container, Title } from 'bloomer';
+import { graphql } from 'react-apollo';
+import { Box, Column, Columns, Container, Icon, Title } from 'bloomer';
 import { Pie } from 'react-chartjs-2';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import ReactLoading from 'react-loading';
+import { outcome } from '../../queries/query.gql';
+
+const randomColor = require('randomcolor');
 
 const data = {
   datasets: [{
@@ -25,12 +29,14 @@ const options = {
 };
 
 export const Outcome = props => (
-  <Container hasTextAlign="Centered">
-    <Box>
-      <Title hasTextColor="black" isSize={2}>Outcome</Title>
-      <Pie data={props.data} options={props.options} />
-    </Box>
-  </Container>
+  <Columns isCentered>
+    <Column isSize="3/4">
+      <Box>
+        <Title hasTextColor="black" isSize={2}>Outcome</Title>
+        <Pie data={props.data} options={props.options} />
+      </Box>
+    </Column>
+  </Columns>
 );
 
 Outcome.propTypes = {
@@ -54,16 +60,30 @@ Outcome.defaultProps = {
   options,
 };
 
-// const mapStateToProps = state => ({
-//   data: {
-//     datasets: [{
-//       data: state.outcome.data,
-//       backgroundColor: state.outcome.dataColor,
-//     }],
-//     labels: state.outcome.labels,
-//   },
-//   options: state.options,
-// });
+const GraphqlContainer = ({ loading, error, data }) => {
+  if (loading) return <ReactLoading type="SpinningBubbles" />;
+  if (error) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
+  const colors = randomColor({
+    count: data.blockchain.count.length,
+    format: 'hsl',
+  });
+  return (
+    <Outcome
+      data={{
+        datasets: {
+          data: data.blockchain.count,
+          backgroundColor: colors,
+        },
+        labels: data.blockchain.possibilities,
+      }}
+    />
+  );
+};
 
-// const OutcomeContainer = connect(mapStateToProps, {})(Outcome);
-// export default OutcomeContainer;
+export const OutcomeContainer = props => (
+  <Container hasTextAlign="centered">
+    <GraphqlContainer {...props} />
+  </Container>
+);
+
+export const OutcomeWrapper = graphql(outcome)(OutcomeContainer);

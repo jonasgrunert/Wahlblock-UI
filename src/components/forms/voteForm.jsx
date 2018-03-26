@@ -1,9 +1,21 @@
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxField, reduxForm } from 'redux-form';
 import { Button, Control, Column, Columns, Field, Label, Radio } from 'bloomer';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+
+const mutation = gql`
+  mutation addVote($ballot: String!, $voting: String!) {
+    blockchain {
+      transactionAdd(ballot: $ballot, voting: $voting){
+        ballot
+        voting
+      }
+    }
+  }
+`;
 
 const Option = props => (
   <Radio name="selection"> {props.option} </Radio>
@@ -14,7 +26,7 @@ Option.propTypes = {
 };
 
 const Options = optionsConfig => (
-  optionsConfig.map(config => <span><ReduxField name="selection" component={Option} type="radio" option={config} /><br /></span>)
+  optionsConfig.map(config => <span><ReduxField name="selection" component={Option} type="radio" option={config} value={Option} /><br /></span>)
 );
 
 let VoteForm = props => (
@@ -46,13 +58,23 @@ VoteForm.defaultProps = {
 
 VoteForm = reduxForm({ form: 'vote' })(VoteForm);
 
-const mapStateToProps = state => ({
-  state: state.login === 'loggingin' || state.login === 'loggingout',
-});
+const VoteFormWrapper = props => (
+  <Mutation mutation={mutation}>
+    {(addVote, { loading, error }) => (
+      <VoteForm
+        handleSubmit={(values) => {
+          addVote({ variables: { ballot: props.hashkey, voting: values.selection } });
+        }}
+        state={loading}
+        error={error}
+      />
+    )}
+  </Mutation>
+);
 
-const mapDispatchToProps = dispatch => ({
-  handleSubmit: () => dispatch(push('/btw17')),
-});
+VoteFormWrapper.propTypes = {
+  hashkey: PropTypes.string.isRequired,
+};
 
-const VoteFormContainer = connect(mapStateToProps, mapDispatchToProps)(VoteForm);
+const VoteFormContainer = connect(state => ({ hashkey: state.hash }), {})(VoteForm);
 export default VoteFormContainer;

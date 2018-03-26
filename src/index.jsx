@@ -1,3 +1,5 @@
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
 import { Hero, HeroBody } from 'bloomer';
 import createBrowserHistory from 'history/createBrowserHistory';
 import * as React from 'react';
@@ -5,36 +7,50 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { middleware as fetchMiddleware } from 'react-redux-fetch';
 import { applyMiddleware, createStore } from 'redux';
 
 import './config/wahlblockStyles.scss';
 import Main from './components/main/main';
 import InfoContainer from './components/main/info';
-import { Outcome } from './components/main/outcome';
+import { OutcomeWrapper } from './components/main/outcome';
 import { Stats } from './components/main/stats';
-import { Vote } from './components/main/vote';
+import { VoteFormWrapper } from './components/main/vote';
 import MainMenu from './components/navigation/menu';
 import reducer from './reducers/reducers';
 import menuLinks from './config/menuLink';
 
 const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(middleware));
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(middleware, fetchMiddleware));
+
+const client = new ApolloClient({
+  uri: 'http://192.168.99.100:3000/graphql',
+  connectToDevTools: true,
+  fetchOptions: {
+    mode: 'no-cors',
+    headers: new Headers({
+      "accept": "application/json",
+    }),
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
-        <MainMenu routesConfig={menuLinks} title="Wahlblock" />
-        <HeroBody id="main" isFullWidth isMarginless isPaddingless>
-          <Route path="/:election" exact component={InfoContainer} />
-          <Route path="/:election/login" exact component={Main} />
-          <Route path="/:election/vote" exact component={Vote} />
-          <Route path="/:election/outcome" exact component={Outcome} />
-          <Route path="/:election/stats" exact component={Stats} />
-        </HeroBody>
-      </Hero>
-    </ConnectedRouter>
+    <ApolloProvider client={client}>
+      <ConnectedRouter history={history}>
+        <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
+          <MainMenu routesConfig={menuLinks} title="Wahlblock" />
+          <HeroBody id="main" isFullWidth isMarginless isPaddingless>
+            <Route path="/:election" exact component={InfoContainer} />
+            <Route path="/:election/login" exact component={Main} />
+            <Route path="/:election/vote" exact component={VoteFormWrapper} />
+            <Route path="/:election/outcome" exact component={OutcomeWrapper} />
+            <Route path="/:election/stats" exact component={Stats} />
+          </HeroBody>
+        </Hero>
+      </ConnectedRouter>
+    </ApolloProvider>
   </Provider>,
   document.getElementById('example'),
 );

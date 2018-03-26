@@ -1,7 +1,8 @@
-import { Box, Container, Tile, Title } from 'bloomer';
+import { Box, Container, Icon, Tile, Title } from 'bloomer';
 import * as React from 'react';
+import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import connect from 'react-redux-fetch';
 
 const TileTitle = props => (
   <Title hasTextColor="black" isSize={2} hasTextAlign="left">{props.title}</Title>
@@ -11,64 +12,83 @@ TileTitle.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-const Info = (props) => {
-  const { info, question, answers } = props;
-  return (
-    <Container hasTextAlign="centered">
-      <Tile isAncestor>
-        <Tile isParent isSize={8}>
-          <Tile
-            isChild
-            render={subprops => (
-              <Box {...subprops} hasTextAlign="left">
-                <TileTitle title="Information" />
-                <p>{info}</p>
-              </Box>
-            )}
-          />
+class Info extends React.Component {
+  componentWillMount() {
+    this.props.dispatchInformationGet();
+  }
+
+  render() {
+    const { description, question, answers } = this.props.InformationFetch;
+    if (this.props.InformationFetch.pending) {
+      return (
+        <Container hasTextAlign="centered">
+          <ReactLoading type="SpinningBubbles" />
+        </Container>
+      );
+    }
+    if (this.props.InformationFetch.rejected) {
+      return (
+        <Container hasTextAlign="centered">
+          <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />
+        </Container>
+      );
+    }
+    return (
+      <Container hasTextAlign="centered">
+        <Tile isAncestor>
+          <Tile isParent isSize={8}>
+            <Tile
+              isChild
+              render={subprops => (
+                <Box {...subprops} hasTextAlign="left">
+                  <TileTitle title="Information" />
+                  <p>{description}</p>
+                </Box>
+              )}
+            />
+          </Tile>
+          <Tile isParent isVertical isSize={4}>
+            <Tile
+              isChild
+              render={subprops => (
+                <Box {...subprops} hasTextAlign="left">
+                  <TileTitle title="Question" />
+                  <p>{question}</p>
+                </Box>
+              )}
+            />
+            <Tile
+              isChild
+              render={subprops => (
+                <Box {...subprops} hasTextAlign="left">
+                  <TileTitle title="Answers" />
+                  <p>{answers}</p>
+                </Box>
+              )}
+            />
+          </Tile>
         </Tile>
-        <Tile isParent isVertical isSize={4}>
-          <Tile
-            isChild
-            render={subprops => (
-              <Box {...subprops} hasTextAlign="left">
-                <TileTitle title="Question" />
-                <p>{question}</p>
-              </Box>
-            )}
-          />
-          <Tile
-            isChild
-            render={subprops => (
-              <Box {...subprops} hasTextAlign="left">
-                <TileTitle title="Answers" />
-                <p>{answers}</p>
-              </Box>
-            )}
-          />
-        </Tile>
-      </Tile>
-    </Container>
-  );
-};
+      </Container>
+    );
+  }
+}
 
 Info.propTypes = {
-  info: PropTypes.string,
-  question: PropTypes.string,
-  answers: PropTypes.string,
+  dispatchInformationGet: PropTypes.func.isRequired,
+  InformationFetch: PropTypes.object.isRequired,
 };
 
-Info.defaultProps = {
-  info: 'No information available. Did you get lost?',
-  question: 'No information available. Did you get lost?',
-  answers: 'No answers available. Did you get lost?',
-};
+// Info.defaultProps = {
+//   InformationFetch:
+// };
 
-const mapStateToProps = state => ({
-  information: state.information,
-  questions: state.questions,
-  answers: state.answers,
-});
+const InfoContainer = connect([{
+  resource: 'Information',
+  method: 'get',
+  request: {
+    method: 'get',
+    url: 'http://localhost:8080/api/v1/election/1',
+  },
+}])(Info);
 
-const InfoContainer = connect(mapStateToProps, null)(Info);
 export default InfoContainer;

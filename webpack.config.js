@@ -1,5 +1,6 @@
 module.exports = {
   entry: [
+    'babel-polyfill',
     './src/index.jsx',
   ],
   output: {
@@ -20,6 +21,11 @@ module.exports = {
     rules: [
       // Babel
       { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader' },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
       { test: /\.scss$/, 
         use: [{
           loader: "style-loader" // creates style nodes from JS strings

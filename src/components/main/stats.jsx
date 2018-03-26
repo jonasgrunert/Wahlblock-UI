@@ -1,4 +1,4 @@
-import { Box, Container, Title } from 'bloomer';
+import { Box, Column, Columns, Container, Title } from 'bloomer';
 import { Pie } from 'react-chartjs-2';
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -26,10 +26,14 @@ const options = {
 
 export const Stats = props => (
   <Container hasTextAlign="Centered">
-    <Box>
-      <Title hasTextColor="black" isSize={2}>Stats for Nerds</Title>
-      <Pie data={props.data} options={props.options} />
-    </Box>
+    <Columns isCentered>
+      <Column isSize="3/4">
+        <Box>
+          <Title hasTextColor="black" isSize={2}>Stats for Nerds</Title>
+          <Pie data={props.data} options={props.options} />
+        </Box>
+      </Column>
+    </Columns>
   </Container>
 );
 

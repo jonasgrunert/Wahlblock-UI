@@ -1,0 +1,6 @@
+query outcome {
+  blockchain {
+    count
+    possibilities
+  }
+}
