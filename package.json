@@ -43,7 +43,7 @@
     "bloomer": "^0.6.3",
     "bulma": "^0.6.2",
     "chart.js": "^2.7.1",
-    "graphql": "^0.10.1",
+    "graphql": "^0.13.0",
     "graphql-tag": "^2.8.0",
     "history": "^4.7.2",
     "lodash": "4.17.4",
@@ -64,6 +64,6 @@
     "redux": "^3.7.2",
     "redux-burger-menu": "^0.2.4",
     "redux-form": "^7.2.3",
-    "sha256": "^0.2.0"
+    "whatwg-fetch": "^2.0.3"
   }
 }

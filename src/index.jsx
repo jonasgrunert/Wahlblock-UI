@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { Hero, HeroBody } from 'bloomer';
@@ -15,7 +16,7 @@ import Main from './components/main/main';
 import InfoContainer from './components/main/info';
 import { OutcomeWrapper } from './components/main/outcome';
 import { Stats } from './components/main/stats';
-import { VoteFormWrapper } from './components/main/vote';
+import { VoteForm } from './components/main/vote';
 import MainMenu from './components/navigation/menu';
 import reducer from './reducers/reducers';
 import menuLinks from './config/menuLink';
@@ -26,13 +27,6 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 const client = new ApolloClient({
   uri: 'http://192.168.99.100:3000/graphql',
-  connectToDevTools: true,
-  fetchOptions: {
-    mode: 'no-cors',
-    headers: new Headers({
-      "accept": "application/json",
-    }),
-  },
 });
 
 ReactDOM.render(
@@ -44,7 +38,7 @@ ReactDOM.render(
           <HeroBody id="main" isFullWidth isMarginless isPaddingless>
             <Route path="/:election" exact component={InfoContainer} />
             <Route path="/:election/login" exact component={Main} />
-            <Route path="/:election/vote" exact component={VoteFormWrapper} />
+            <Route path="/:election/vote" exact component={VoteForm} />
             <Route path="/:election/outcome" exact component={OutcomeWrapper} />
             <Route path="/:election/stats" exact component={Stats} />
           </HeroBody>

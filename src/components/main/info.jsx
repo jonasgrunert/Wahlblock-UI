@@ -18,7 +18,6 @@ class Info extends React.Component {
   }
 
   render() {
-    const { description, question, answers } = this.props.InformationFetch;
     if (this.props.InformationFetch.pending) {
       return (
         <Container hasTextAlign="centered">
@@ -42,7 +41,7 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Information" />
-                  <p>{description}</p>
+                  <p>{JSON.stringify(this.props.InformationFetch.value)}</p>
                 </Box>
               )}
             />
@@ -53,7 +52,7 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Question" />
-                  <p>{question}</p>
+                  <p>Title</p>
                 </Box>
               )}
             />
@@ -62,7 +61,7 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Answers" />
-                  <p>{answers}</p>
+                  <p>Answers</p>
                 </Box>
               )}
             />

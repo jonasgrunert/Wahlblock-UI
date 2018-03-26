@@ -87,8 +87,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   redirect: () => {
     if (ownProps.LoginFetch.value !== undefined) {
-      if (ownProps.LoginFetch.value.hash) {
-        dispatch(push('btw17/vote'));
+      if (ownProps.LoginFetch.value.hash !== undefined) {
+        dispatch(push('/btw17/vote'));
       }
     }
   },
