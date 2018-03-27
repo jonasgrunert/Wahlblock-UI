@@ -67,7 +67,7 @@ const GraphqlContainer = (props) => {
   //   count: props.data.blockchain.count.length,
   //   format: 'hsl',
   // });
-  return (<p>{JSON.stringify(props)}</p>
+  return (<p>{JSON.stringify(props.data.blockchain)}</p>
     // <Outcome
     //   data={{
     //     datasets: {

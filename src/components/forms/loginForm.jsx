@@ -75,8 +75,9 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: () => {
-    ownProps.dispatchLoginPost();
+  onSubmit: async () => {
+    await ownProps.dispatchLoginPost();
+    dispatch(push('/btw17/vote'));
   },
   generateKey: async () => {
     if (ownProps.publicKey === null) {

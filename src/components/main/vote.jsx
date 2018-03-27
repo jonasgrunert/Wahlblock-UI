@@ -3,7 +3,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import VoteForm from '../forms/voteForm';
+import VoteFormWrapper, { VoteForm } from '../forms/voteForm';
 
 export const Vote = props => (
   <Container hasTextAlign="centered">
@@ -11,7 +11,7 @@ export const Vote = props => (
       <Column isSize="1/2">
         <Box>
           <Title isSize={2} hasTextColor="black">Vote now</Title>
-          <VoteForm onSubmit={() => false}/>
+          <VoteForm />
         </Box>
       </Column>
     </Columns>
