@@ -7,15 +7,15 @@ import { decorator as reduxBurgerMenu } from 'redux-burger-menu';
 import burgerMenuStyles from '../../config/burgerMenuStyles';
 import NavLinkWrapper from './navLinkWrapper';
 
-const Links = menuConfig => (
-  menuConfig.map(link => (<NavLinkWrapper link={link.link} name={link.name} />))
+const Links = (menuConfig, base) => (
+  menuConfig.map(link => (<NavLinkWrapper link={`/${base}/${link.link}`} name={link.name} />))
 );
 
 const SubMenus = menuConfig => (
   menuConfig.map(subMenu => (
     <Container isFluid style={{ margin: '1em' }}>
       <MenuLabel>{subMenu.title}</MenuLabel>
-      <MenuList>{Links(subMenu.links)}</MenuList>
+      <MenuList>{Links(subMenu.links, subMenu.base)}</MenuList>
     </Container>
   ))
 );

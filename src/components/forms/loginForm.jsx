@@ -4,12 +4,12 @@ import { Field as ReduxField, reduxForm } from 'redux-form';
 import { Button, Columns, Column, Control, Field, Input as BInput, Label } from 'bloomer';
 import { connect as reduxConnect } from 'react-redux';
 import connect from 'react-redux-fetch';
-import { push } from 'react-router-redux';
 import { createHash } from 'crypto';
 
-const randomstring = require('randomstring');
-
 import { setKey } from '../../actions/actions';
+import { baseServiceUrl, loginServiceUrl } from '../../config/serviceLink';
+
+const randomstring = require('randomstring');
 
 const TextInput = field => (
   <BInput {...field.input} />
@@ -28,11 +28,6 @@ TextInput.defaultProps = {
 class LoginForm extends React.Component {
   componentWillMount() {
     this.props.generateKey();
-    this.props.redirect();
-  }
-
-  componentWillReceiveProps() {
-    this.props.redirect();
   }
 
   render() {
@@ -63,7 +58,6 @@ class LoginForm extends React.Component {
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   generateKey: PropTypes.func.isRequired,
-  redirect: PropTypes.func.isRequired,
   state: PropTypes.bool,
 };
 
@@ -89,20 +83,15 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       dispatch(setKey(hash.digest('hex')));
     }
   },
-  redirect: () => {
-    if (ownProps.LoginFetch.fulfilled) {
-      dispatch(push('/btw17/vote'));
-    }
-  },
 });
 
-export const LoginFormContainer = reduxConnect(mapStateToProps, mapDispatchToProps)(LoginFormWrapper);
+const LoginFormContainer = reduxConnect(mapStateToProps, mapDispatchToProps)(LoginFormWrapper);
 
-export const LoginFormFetch = connect(props => [{
+const LoginFormFetch = connect(props => [{
   resource: 'Login',
   method: 'post',
   request: {
-    url: 'http://localhost:8080/api/v1/voter/login',
+    url: baseServiceUrl + loginServiceUrl,
     method: 'post',
     body: {
       idCardNumber: props.idCardNumber,

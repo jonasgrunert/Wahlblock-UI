@@ -12,21 +12,22 @@ import { middleware as fetchMiddleware } from 'react-redux-fetch';
 import { applyMiddleware, createStore } from 'redux';
 
 import './config/wahlblockStyles.scss';
-import Main from './components/main/main';
+import MainWrapper from './components/main/main';
 import InfoContainer from './components/main/info';
 import { OutcomeWrapper } from './components/main/outcome';
 import { Stats } from './components/main/stats';
-import { Vote } from './components/main/vote';
+import VoteWrapper from './components/main/vote';
 import MainMenu from './components/navigation/menu';
 import reducer from './reducers/reducers';
 import menuLinks from './config/menuLink';
+import { graphQLServer } from './config/serviceLink';
 
 const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(middleware, fetchMiddleware));
 
 const client = new ApolloClient({
-  uri: 'http://192.168.99.100:3000/graphql',
+  uri: graphQLServer,
 });
 
 ReactDOM.render(
@@ -36,9 +37,9 @@ ReactDOM.render(
         <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
           <MainMenu routesConfig={menuLinks} title="Wahlblock" />
           <HeroBody id="main" isFullWidth isMarginless isPaddingless>
-            <Route path="/:election" exact component={InfoContainer} />
-            <Route path="/:election/login" exact component={Main} />
-            <Route path="/:election/vote" exact component={Vote} />
+            <Route path="/:election/" exact component={InfoContainer} />
+            <Route path="/:election/login" exact component={MainWrapper} />
+            <Route path="/:election/vote" exact component={VoteWrapper} />
             <Route path="/:election/outcome" exact component={OutcomeWrapper} />
             <Route path="/:election/stats" exact component={Stats} />
           </HeroBody>

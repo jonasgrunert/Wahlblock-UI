@@ -4,6 +4,9 @@ import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
 import connect from 'react-redux-fetch';
 
+import { baseServiceUrl, infoServiceUrl } from '../../config/serviceLink';
+import menuLink from '../../config/menuLink';
+
 const TileTitle = props => (
   <Title hasTextColor="black" isSize={2} hasTextAlign="left">{props.title}</Title>
 );
@@ -113,12 +116,22 @@ Info.defaultProps = {
   },
 };
 
-const InfoContainer = connect([{
+const infoID = (location) => {
+  let id = 1;
+  menuLink.forEach((link) => {
+    if (link.base === location) {
+      id = link.id;
+    }
+  });
+  return id;
+};
+
+const InfoContainer = connect((props, context) => [{
   resource: 'Information',
   method: 'get',
   request: {
     method: 'get',
-    url: 'http://localhost:8080/api/v1/election/1',
+    url: baseServiceUrl + infoServiceUrl + infoID(props.match.params.election),
   },
 }])(Info);
 
