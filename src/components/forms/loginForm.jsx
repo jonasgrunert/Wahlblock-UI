@@ -31,6 +31,10 @@ class LoginForm extends React.Component {
     this.props.redirect();
   }
 
+  componentWillReceiveProps() {
+    this.props.redirect();
+  }
+
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -75,9 +79,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: async () => {
-    await ownProps.dispatchLoginPost();
-    dispatch(push('/btw17/vote'));
+  onSubmit: () => {
+    ownProps.dispatchLoginPost();
   },
   generateKey: async () => {
     if (ownProps.publicKey === null) {
@@ -87,10 +90,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
   redirect: () => {
-    if (ownProps.LoginFetch.value !== undefined) {
-      if (ownProps.LoginFetch.value.hash !== undefined) {
-        dispatch(push('/btw17/vote'));
-      }
+    if (ownProps.LoginFetch.fulfilled) {
+      dispatch(push('/btw17/vote'));
     }
   },
 });

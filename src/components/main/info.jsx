@@ -18,7 +18,7 @@ class Info extends React.Component {
   }
 
   render() {
-    if (this.props.InformationFetch.pending) {
+    if (this.props.InformationFetch.pending || this.props.InformationFetch.value === undefined) {
       return (
         <Container hasTextAlign="centered">
           <ReactLoading type="SpinningBubbles" />
@@ -41,7 +41,7 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Information" />
-                  <p>{JSON.stringify(this.props.InformationFetch.value)}</p>
+                  <p>{this.props.InformationFetch.value.description}</p>
                 </Box>
               )}
             />
@@ -52,7 +52,7 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Question" />
-                  <p>Title</p>
+                  <p>{this.props.InformationFetch.value.title}</p>
                 </Box>
               )}
             />
@@ -61,7 +61,9 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Answers" />
-                  <p>Answers</p>
+                  <p>{this.props.InformationFetch.value.selectionOptions.map(element =>
+                    <p>{element.option}</p>)}
+                  </p>
                 </Box>
               )}
             />
@@ -74,12 +76,42 @@ class Info extends React.Component {
 
 Info.propTypes = {
   dispatchInformationGet: PropTypes.func.isRequired,
-  InformationFetch: PropTypes.object.isRequired,
+  InformationFetch: PropTypes.shape({
+    pending: PropTypes.bool.isRequired,
+    rejected: PropTypes.bool.isRequired,
+    fulfilled: PropTypes.bool.isRequired,
+    value: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      beginDate: PropTypes.string.isRequired,
+      endDate: PropTypes.string.isRequired,
+      selectionOptions: PropTypes.arrayOf({
+        position: PropTypes.number.isRequired,
+        option: PropTypes.string.isRequired,
+      }),
+    }),
+  }),
 };
 
-// Info.defaultProps = {
-//   InformationFetch:
-// };
+Info.defaultProps = {
+  InformationFetch: {
+    pending: false,
+    rejected: false,
+    fulfilled: true,
+    value: {
+      id: 0,
+      title: 'Example',
+      description: 'This is  placeholder',
+      beginDate: '',
+      endDate: '',
+      selectionOptions: [{
+        position: 1,
+        option: 'None',
+      }],
+    },
+  },
+};
 
 const InfoContainer = connect([{
   resource: 'Information',

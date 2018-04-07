@@ -61,22 +61,22 @@ Outcome.defaultProps = {
 };
 
 const GraphqlContainer = (props) => {
-  if (props.loading) return <ReactLoading type="SpinningBubbles" />;
-  if (props.error !== undefined) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
-  // const colors = randomColor({
-  //   count: props.data.blockchain.count.length,
-  //   format: 'hsl',
-  // });
-  return (<p>{JSON.stringify(props.data.blockchain)}</p>
-    // <Outcome
-    //   data={{
-    //     datasets: {
-    //       data: props.data.blockchain.count,
-    //       backgroundColor: colors,
-    //     },
-    //     labels: props.data.blockchain.possibilities,
-    //   }}
-    // />
+  if (props.loading || props.data.blockchain === undefined) return <ReactLoading type="SpinningBubbles" />;
+  if (props.error !== undefined || props.data.blockchain.count.length === 0) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
+  const colors = randomColor({
+    count: props.data.blockchain.count.length,
+    format: 'hsl',
+  });
+  return (
+    <Outcome
+      data={{
+        datasets: [{
+          data: props.data.blockchain.count,
+          backgroundColor: colors,
+        }],
+        labels: props.data.blockchain.possibilities,
+      }}
+    />
   );
 };
 
