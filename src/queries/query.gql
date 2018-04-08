@@ -4,3 +4,14 @@ query outcome {
     possibilities
   }
 }
+
+query stats {
+  blockchain {
+    chain {
+      length
+    }
+    pendingTransactions {
+      ballot
+    }
+  }
+}

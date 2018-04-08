@@ -1,8 +1,16 @@
 mutation addVote($ballot: String!, $voting: String!) {
-    blockchain {
-      transactionAdd(ballot: $ballot, voting: $voting){
-        ballot
-        voting
-      }
+  blockchain {
+    transactionAdd(ballot: $ballot, voting: $voting){
+      ballot
+      voting
     }
   }
+}
+
+mutation mine {
+  blockchain {
+    mine {
+      previousHash
+    }
+  }
+}
