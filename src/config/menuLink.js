@@ -1,3 +1,4 @@
+// Config for links displayed in the sidemenu
 const menuLinks = [
   {
     title: 'Bundestagswahl 2017',

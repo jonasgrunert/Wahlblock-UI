@@ -7,10 +7,12 @@ import { decorator as reduxBurgerMenu } from 'redux-burger-menu';
 import burgerMenuStyles from '../../config/burgerMenuStyles';
 import NavLinkWrapper from './navLinkWrapper';
 
+// building button component
 const Links = (menuConfig, base) => (
   menuConfig.map(link => (<NavLinkWrapper link={`/${base}/${link.link}`} name={link.name} />))
 );
 
+// building sidemenu for subcategories
 const SubMenus = menuConfig => (
   menuConfig.map(subMenu => (
     <Container isFluid style={{ margin: '1em' }}>
@@ -20,6 +22,7 @@ const SubMenus = menuConfig => (
   ))
 );
 
+// building complete sidemenu
 const AdminMenu = props => (
   <Menu>
     <MenuList>
@@ -36,6 +39,7 @@ AdminMenu.propTypes = {
   })).isRequired,
 };
 
+// sidemenu component for burgermenu
 const SideMenu = props => (
   <SideBar
     isOpen={false}
@@ -62,5 +66,6 @@ SideMenu.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
+// higher order sidemenu component
 const MainMenu = reduxBurgerMenu(SideMenu);
 export default MainMenu;

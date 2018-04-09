@@ -1,3 +1,4 @@
+// Styles for the sidemenu
 const burgerMenuStyles = {
   bmBurgerBars: {
     background: '#373a47',

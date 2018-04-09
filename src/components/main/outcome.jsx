@@ -8,6 +8,7 @@ import { outcome } from '../../queries/query.gql';
 
 const randomColor = require('randomcolor');
 
+// default values
 const data = {
   datasets: [{
     data: [10, 20, 30],
@@ -28,7 +29,8 @@ const options = {
   },
 };
 
-export const Outcome = props => (
+// container for graph
+const Outcome = props => (
   <Columns isCentered>
     <Column isSize="3/4">
       <Box>
@@ -60,6 +62,7 @@ Outcome.defaultProps = {
   options,
 };
 
+// component for visualizing graphql data
 const GraphqlContainer = (props) => {
   if (props.loading || props.data.blockchain === undefined) return <ReactLoading type="SpinningBubbles" />;
   if (props.error !== undefined || props.data.blockchain.count.length === 0) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
@@ -80,10 +83,12 @@ const GraphqlContainer = (props) => {
   );
 };
 
-export const OutcomeContainer = props => (
+// warpping in container
+const OutcomeContainer = props => (
   <Container hasTextAlign="centered">
     <GraphqlContainer {...props} />
   </Container>
 );
 
+// wrapping with graphql query
 export const OutcomeWrapper = graphql(outcome)(OutcomeContainer);

@@ -6,6 +6,7 @@ import { push } from 'react-router-redux';
 
 import VoteFormWrapper from '../forms/voteForm';
 
+// STateful compoent for redirecting upon login
 class Vote extends React.Component {
   componentWillMount() {
     this.props.redirect();
@@ -47,4 +48,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
+// wrapping first with state then checking it or redirection
 export default connect(mapStateToProps, null)(connect(null, mapDispatchToProps)(Vote));

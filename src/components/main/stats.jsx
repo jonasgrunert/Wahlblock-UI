@@ -8,6 +8,7 @@ import ReactLoading from 'react-loading';
 import { stats } from '../../queries/query.gql';
 import { mine } from '../../queries/mutation.gql';
 
+// default data values
 const data = {
   datasets: [{
     data: [10, 20, 30],
@@ -22,13 +23,15 @@ const data = {
   ],
 };
 
+// default option
 const options = {
   legend: {
     display: false,
   },
 };
 
-export const Stats = props => (
+// Parent component with box
+const Stats = props => (
   <Columns isCentered>
     <Column isSize="3/4">
       <Box>
@@ -63,6 +66,7 @@ Stats.defaultProps = {
   options,
 };
 
+// Component for data visualization
 const GraphqlContainer = (props) => {
   if (props.loading || props.data.blockchain === undefined) return <ReactLoading type="SpinningBubbles" />;
   if (props.error !== undefined || props.data.blockchain.chain.length === 0) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
@@ -79,13 +83,16 @@ const GraphqlContainer = (props) => {
   );
 };
 
+// Mining button
 const MineContainer = props => (
   <Button isColor="info" isSize="small" isPulled="right" onClick={props.mutate}>Mine</Button>
 );
 
+// wrapping components with queries
 export const StatsWrapper = graphql(stats)(GraphqlContainer);
 export const MineWrapper = graphql(mine)(MineContainer);
 
+// wrapping in a container to center box
 export const StatsContainer = props => (
   <Container hasTextAlign="Centered">
     <StatsWrapper />

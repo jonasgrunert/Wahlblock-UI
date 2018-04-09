@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { Hero, HeroBody } from 'bloomer';
@@ -22,20 +21,27 @@ import reducer from './reducers/reducers';
 import menuLinks from './config/menuLink';
 import { graphQLServer } from './config/serviceLink';
 
+// Setup for Redux and Rouer
 const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(middleware, fetchMiddleware));
+const store = createStore(reducer, applyMiddleware(middleware, fetchMiddleware));
 
+// Setup for Apolloclient
 const client = new ApolloClient({
   uri: graphQLServer,
 });
 
+// Initial Render
 ReactDOM.render(
+  // Redux Provider
   <Provider store={store}>
+    { /* Apollo Provider */ }
     <ApolloProvider client={client}>
       <ConnectedRouter history={history}>
         <Hero id="outer-container" isFullWidth isFullHeight isColor="primary">
+          { /* Menu */ }
           <MainMenu routesConfig={menuLinks} title="Wahlblock" />
+          { /* Router */ }
           <HeroBody id="main" isFullWidth isMarginless isPaddingless>
             <Route path="/:election/" exact component={InfoContainer} />
             <Route path="/:election/login" exact component={MainWrapper} />
