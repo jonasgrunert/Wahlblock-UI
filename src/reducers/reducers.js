@@ -7,7 +7,7 @@ import { reducer as fetchReducer } from 'react-redux-fetch';
 import { SET_HASHKEY } from '../actions/actions';
 
 // Reducer for private hash key
-const hash = (state = null, action) => {
+export const hash = (state = null, action) => {
   switch (action.type) {
     case SET_HASHKEY:
       return action.hash;

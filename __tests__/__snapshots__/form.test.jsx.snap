@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering forms render loginform 1`] = `
+<form
+  onSubmit={[MockFunction]}
+>
+  <withHelpersModifiers(Field)>
+    <withHelpersModifiers(Label)>
+      Name
+    </withHelpersModifiers(Label)>
+    <withHelpersModifiers(Control)>
+      <Field
+        component={[Function]}
+        name="name"
+        placeholder="Max Mustermann"
+        type="text"
+      />
+    </withHelpersModifiers(Control)>
+  </withHelpersModifiers(Field)>
+  <withHelpersModifiers(Field)>
+    <withHelpersModifiers(Label)>
+      PIN
+    </withHelpersModifiers(Label)>
+    <withHelpersModifiers(Control)>
+      <Field
+        component={[Function]}
+        name="pin"
+        placeholder="Your PIN"
+        state={false}
+        type="password"
+      />
+    </withHelpersModifiers(Control)>
+  </withHelpersModifiers(Field)>
+  <withHelpersModifiers(Columns)
+    isMobile={true}
+  >
+    <withHelpersModifiers(Column)
+      isSize="full"
+    >
+      <withHelpersModifiers(Button)
+        isColor="primary"
+        isLoading={false}
+        isOutlined={true}
+        isPulled="right"
+        isSize="medium"
+        type="submit"
+      >
+        Login
+      </withHelpersModifiers(Button)>
+    </withHelpersModifiers(Column)>
+  </withHelpersModifiers(Columns)>
+</form>
+`;
+
+exports[`rendering forms render textinput 1`] = `
+<withHelpersModifiers(Input)
+  0="t"
+  1="e"
+  2="x"
+  3="t"
+/>
+`;

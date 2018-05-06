@@ -2,20 +2,18 @@ import { Box, Container, Icon, Tile, Title } from 'bloomer';
 import * as React from 'react';
 import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
-import connect from 'react-redux-fetch';
 
-import { baseServiceUrl, infoServiceUrl } from '../../config/serviceLink';
-import menuLink from '../../config/menuLink';
-
-const TileTitle = props => (
-  <Title hasTextColor="black" isSize={2} hasTextAlign="left">{props.title}</Title>
+export const TileTitle = props => (
+  <Title hasTextColor="black" isSize={2} hasTextAlign="left">
+    {props.title}
+  </Title>
 );
 
 TileTitle.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-class Info extends React.Component {
+export class Info extends React.Component {
   componentWillMount() {
     this.props.dispatchInformationGet();
   }
@@ -24,7 +22,7 @@ class Info extends React.Component {
     if (this.props.InformationFetch.pending || this.props.InformationFetch.value === undefined) {
       return (
         <Container hasTextAlign="centered">
-          <ReactLoading type="SpinningBubbles" />
+          <ReactLoading type="spinningBubbles" />
         </Container>
       );
     }
@@ -64,8 +62,10 @@ class Info extends React.Component {
               render={subprops => (
                 <Box {...subprops} hasTextAlign="left">
                   <TileTitle title="Answers" />
-                  <p>{this.props.InformationFetch.value.selectionOptions.map(element =>
-                    <p>{element.option}</p>)}
+                  <p>
+                    {this.props.InformationFetch.value.selectionOptions.map(element => (
+                      <p>{element.option}</p>
+                    ))}
                   </p>
                 </Box>
               )}
@@ -89,10 +89,10 @@ Info.propTypes = {
       description: PropTypes.string.isRequired,
       beginDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,
-      selectionOptions: PropTypes.arrayOf({
+      selectionOptions: PropTypes.arrayOf(PropTypes.shape({
         position: PropTypes.number.isRequired,
         option: PropTypes.string.isRequired,
-      }),
+      })),
     }),
   }),
 };
@@ -105,34 +105,15 @@ Info.defaultProps = {
     value: {
       id: 0,
       title: 'Example',
-      description: 'This is  placeholder',
+      description: 'This is a placeholder',
       beginDate: '',
       endDate: '',
-      selectionOptions: [{
-        position: 1,
-        option: 'None',
-      }],
+      selectionOptions: [
+        {
+          position: 1,
+          option: 'None',
+        },
+      ],
     },
   },
 };
-
-const infoID = (location) => {
-  let id = 1;
-  menuLink.forEach((link) => {
-    if (link.base === location) {
-      id = link.id;
-    }
-  });
-  return id;
-};
-
-const InfoContainer = connect((props, context) => [{
-  resource: 'Information',
-  method: 'get',
-  request: {
-    method: 'get',
-    url: baseServiceUrl + infoServiceUrl + infoID(props.match.params.election),
-  },
-}])(Info);
-
-export default InfoContainer;

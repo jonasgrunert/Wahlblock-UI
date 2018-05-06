@@ -8,26 +8,24 @@ import burgerMenuStyles from '../../config/burgerMenuStyles';
 import NavLinkWrapper from './navLinkWrapper';
 
 // building button component
-const Links = (menuConfig, base) => (
-  menuConfig.map(link => (<NavLinkWrapper link={`/${base}/${link.link}`} name={link.name} />))
-);
+export const Links = (menuConfig, base) =>
+  menuConfig.map(link => (
+    <NavLinkWrapper link={`/${base}/${link.link}`} name={link.name} key={link.link} />
+  ));
 
 // building sidemenu for subcategories
-const SubMenus = menuConfig => (
+export const SubMenus = menuConfig =>
   menuConfig.map(subMenu => (
-    <Container isFluid style={{ margin: '1em' }}>
+    <Container key={subMenu.title} isFluid style={{ margin: '1em' }}>
       <MenuLabel>{subMenu.title}</MenuLabel>
       <MenuList>{Links(subMenu.links, subMenu.base)}</MenuList>
     </Container>
-  ))
-);
+  ));
 
 // building complete sidemenu
-const AdminMenu = props => (
+export const AdminMenu = props => (
   <Menu>
-    <MenuList>
-      { SubMenus(props.routesConfig) }
-    </MenuList>
+    <MenuList>{SubMenus(props.routesConfig)}</MenuList>
   </Menu>
 );
 
@@ -40,7 +38,7 @@ AdminMenu.propTypes = {
 };
 
 // sidemenu component for burgermenu
-const SideMenu = props => (
+export const SideMenu = props => (
   <SideBar
     isOpen={false}
     pageWrapId="main"
@@ -49,7 +47,9 @@ const SideMenu = props => (
     customBurgerIcon={
       <div>
         <Icon isDisplay="inline" isSize="medium" className="fa fa-bars fa-2x" />
-        <Title isDisplay="inline" isSize={3}>&nbsp;{props.title}</Title>
+        <Title isDisplay="inline" isSize={3}>
+          &nbsp;{props.title}
+        </Title>
       </div>
     }
   >

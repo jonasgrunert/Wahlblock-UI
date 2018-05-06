@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering navigation render adminmenu 1`] = `
+<withHelpersModifiers(Menu)>
+  <withHelpersModifiers(MenuList)>
+    <withHelpersModifiers(Container)
+      isFluid={true}
+      key="default"
+      style={
+        Object {
+          "margin": "1em",
+        }
+      }
+    >
+      <withHelpersModifiers(MenuLabel)>
+        default
+      </withHelpersModifiers(MenuLabel)>
+      <withHelpersModifiers(MenuList)>
+        <Connect(NavLinkButton)
+          key="/home"
+          link="/default//home"
+          name="Home"
+        />
+        <Connect(NavLinkButton)
+          key="/default"
+          link="/default//default"
+          name="Home"
+        />
+      </withHelpersModifiers(MenuList)>
+    </withHelpersModifiers(Container)>
+  </withHelpersModifiers(MenuList)>
+</withHelpersModifiers(Menu)>
+`;
+
+exports[`rendering navigation render links 1`] = `
+Array [
+  <Connect(NavLinkButton)
+    link="/local//home"
+    name="Home"
+  />,
+  <Connect(NavLinkButton)
+    link="/local//default"
+    name="Home"
+  />,
+]
+`;
+
+exports[`rendering navigation render navigationlink active 1`] = `
+<li>
+  <withHelpersModifiers(MenuLink)
+    hasTextColor="white"
+    isActive={true}
+    onClick={[MockFunction]}
+  >
+    navigation
+  </withHelpersModifiers(MenuLink)>
+</li>
+`;
+
+exports[`rendering navigation render navigationlink active 2`] = `
+<li>
+  <withHelpersModifiers(MenuLink)
+    hasTextColor="grey"
+    isActive={false}
+    onClick={[MockFunction]}
+  >
+    navigation
+  </withHelpersModifiers(MenuLink)>
+</li>
+`;
+
+exports[`rendering navigation render sidemenu 1`] = `
+<Menu
+  bodyClassName=""
+  burgerBarClassName=""
+  burgerButtonClassName=""
+  className=""
+  crossButtonClassName=""
+  crossClassName=""
+  customBurgerIcon={
+    <div>
+      <withHelpersModifiers(Icon)
+        className="fa fa-bars fa-2x"
+        isDisplay="inline"
+        isSize="medium"
+      />
+      <withHelpersModifiers(Title)
+        isDisplay="inline"
+        isSize={3}
+      >
+         
+        local
+      </withHelpersModifiers(Title)>
+    </div>
+  }
+  disableCloseOnEsc={false}
+  id=""
+  isOpen={false}
+  itemListClassName=""
+  menuClassName=""
+  morphShapeClassName=""
+  noOverlay={false}
+  onStateChange={[Function]}
+  outerContainerId="outer-container"
+  overlayClassName=""
+  pageWrapId="main"
+  styles={
+    Object {
+      "bmBurgerBars": Object {
+        "background": "#373a47",
+      },
+      "bmBurgerButton": Object {
+        "height": "30px",
+        "left": "36px",
+        "position": "fixed",
+        "top": "20px",
+        "width": "200px",
+      },
+      "bmCross": Object {
+        "background": "#bdc3c7",
+      },
+      "bmCrossButton": Object {
+        "height": "24px",
+        "width": "24px",
+      },
+      "bmItemList": Object {
+        "color": "#b8b7ad",
+        "paddingTop": "2em",
+      },
+      "bmMenu": Object {
+        "background": "#ffffff",
+        "fontSize": "1.15em",
+      },
+      "bmMorphShape": Object {
+        "fill": "#373a47",
+      },
+      "bmOverlay": Object {
+        "background": "rgba(0, 0, 0, 0.3)",
+      },
+    }
+  }
+  width={300}
+>
+  <AdminMenu
+    routesConfig={
+      Array [
+        Object {
+          "base": "default",
+          "id": 0,
+          "links": Array [
+            Object {
+              "exact": true,
+              "link": "/home",
+              "name": "Home",
+            },
+            Object {
+              "exact": false,
+              "link": "/default",
+              "name": "Home",
+            },
+          ],
+          "title": "default",
+        },
+      ]
+    }
+  />
+</Menu>
+`;
+
+exports[`rendering navigation render submenus 1`] = `
+Array [
+  <withHelpersModifiers(Container)
+    isFluid={true}
+    style={
+      Object {
+        "margin": "1em",
+      }
+    }
+  >
+    <withHelpersModifiers(MenuLabel)>
+      default
+    </withHelpersModifiers(MenuLabel)>
+    <withHelpersModifiers(MenuList)>
+      <Connect(NavLinkButton)
+        link="/default//home"
+        name="Home"
+      />
+      <Connect(NavLinkButton)
+        link="/default//default"
+        name="Home"
+      />
+    </withHelpersModifiers(MenuList)>
+  </withHelpersModifiers(Container)>,
+]
+`;

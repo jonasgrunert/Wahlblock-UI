@@ -1,12 +1,10 @@
 import { Box, Column, Columns, Container, Notification, Title } from 'bloomer';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
-import { connect } from 'react-redux';
 
-import LoginFormContainer from '../forms/loginForm';
+import LoginFormContainer from '../../forms/hoc/loginForm';
 
-class Main extends React.Component {
+export class Main extends React.Component {
   componentDidMount() {
     this.props.redirect();
   }
@@ -37,24 +35,3 @@ class Main extends React.Component {
 Main.propTypes = {
   redirect: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => {
-  if (state.repository.Login === undefined) {
-    return {
-      fulfilled: false,
-    };
-  }
-  return {
-    login: state.repository.Login.fulfilled,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  redirect: () => {
-    if (ownProps.login) {
-      dispatch(push('/btw17/vote'));
-    }
-  },
-});
-
-export default connect(mapStateToProps, null)(connect(null, mapDispatchToProps)(Main));
