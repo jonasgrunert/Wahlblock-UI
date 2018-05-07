@@ -1,10 +1,17 @@
-const {
+import {
   Builder,
-  By,
-} = require('selenium-webdriver');
+  By
+} from 'selenium-webdriver';
+import firefox from 'selenium-webdriver/firefox'
 
 describe('headless browsing', () => {
-  const driver = new Builder().forBrowser('firefox').build();
+  const driver = new Builder()
+    .forBrowser('firefox')
+    .setFirefoxOptions(new firefox.Options().headless().windowSize({
+      width: 640,
+      height: 480,
+    }))
+    .build();
   it('Should change location', async (done) => {
     try {
       await driver.navigate().to('http://localhost:8000/');
@@ -16,5 +23,5 @@ describe('headless browsing', () => {
     } finally {
       driver.quit();
     }
-  }, 50000);
+  });
 });
