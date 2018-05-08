@@ -1,13 +1,11 @@
 import { Box, Container, Column, Columns, Title } from 'bloomer';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
-import VoteFormWrapper from '../forms/voteForm';
+import VoteFormWrapper from '../../forms/hoc/voteForm';
 
 // STateful compoent for redirecting upon login
-class Vote extends React.Component {
+export class Vote extends React.Component {
   componentWillMount() {
     this.props.redirect();
   }
@@ -22,7 +20,9 @@ class Vote extends React.Component {
         <Columns isCentered>
           <Column isSize="1/2">
             <Box>
-              <Title isSize={2} hasTextColor="black">Vote now</Title>
+              <Title isSize={2} hasTextColor="black">
+                Vote now
+              </Title>
               <VoteFormWrapper />
             </Box>
           </Column>
@@ -35,18 +35,3 @@ class Vote extends React.Component {
 Vote.propTypes = {
   redirect: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = state => ({
-  login: state.repository.Login.fulfilled,
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  redirect: () => {
-    if (!ownProps.login) {
-      dispatch(push('/btw17/login'));
-    }
-  },
-});
-
-// wrapping first with state then checking it or redirection
-export default connect(mapStateToProps, null)(connect(null, mapDispatchToProps)(Vote));

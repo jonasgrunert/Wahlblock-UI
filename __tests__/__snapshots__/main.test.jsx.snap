@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render info page should render info fulfilled 1`] = `
+<withHelpersModifiers(Container)
+  hasTextAlign="centered"
+>
+  <withHelpersModifiers(Tile)
+    isAncestor={true}
+  >
+    <withHelpersModifiers(Tile)
+      isParent={true}
+      isSize={8}
+    >
+      <withHelpersModifiers(Tile)
+        isChild={true}
+        render={[Function]}
+      />
+    </withHelpersModifiers(Tile)>
+    <withHelpersModifiers(Tile)
+      isParent={true}
+      isSize={4}
+      isVertical={true}
+    >
+      <withHelpersModifiers(Tile)
+        isChild={true}
+        render={[Function]}
+      />
+      <withHelpersModifiers(Tile)
+        isChild={true}
+        render={[Function]}
+      />
+    </withHelpersModifiers(Tile)>
+  </withHelpersModifiers(Tile)>
+</withHelpersModifiers(Container)>
+`;
+
+exports[`render info page should render info pending 1`] = `
+<withHelpersModifiers(Container)
+  hasTextAlign="centered"
+>
+  <Loading
+    color="#fff"
+    delay={1000}
+    height={64}
+    type="spinningBubbles"
+    width={64}
+  />
+</withHelpersModifiers(Container)>
+`;
+
+exports[`render info page should render info rejected 1`] = `
+<withHelpersModifiers(Container)
+  hasTextAlign="centered"
+>
+  <withHelpersModifiers(Icon)
+    className="fa fa-exclamation-triangle fa-3x"
+    isSize="large"
+  />
+</withHelpersModifiers(Container)>
+`;
+
+exports[`render info page sould render titletitle 1`] = `
+<withHelpersModifiers(Title)
+  hasTextAlign="left"
+  hasTextColor="black"
+  isSize={2}
+>
+  default
+</withHelpersModifiers(Title)>
+`;
+
+exports[`render main page should render main 1`] = `
+<withHelpersModifiers(Container)
+  hasTextAlign="centered"
+>
+  <withHelpersModifiers(Columns)
+    isCentered={true}
+  >
+    <withHelpersModifiers(Column)
+      isSize="1/2"
+    >
+      <withHelpersModifiers(Box)
+        hasTextAlign="left"
+      >
+        <withHelpersModifiers(Title)
+          hasTextColor="primary"
+        >
+          Login
+        </withHelpersModifiers(Title)>
+        <withHelpersModifiers(Notification)
+          isColor="danger"
+        >
+          Once logged in on one device you have to complete the vote process.
+        </withHelpersModifiers(Notification)>
+        <Connect(Connect(ReactReduxFetch.connect(Connect(ReduxForm)))) />
+      </withHelpersModifiers(Box)>
+    </withHelpersModifiers(Column)>
+  </withHelpersModifiers(Columns)>
+</withHelpersModifiers(Container)>
+`;
+
+exports[`render outcome page should render graphqlcontainer error 1`] = `
+<Loading
+  color="#fff"
+  delay={1000}
+  height={64}
+  type="spinningBubbles"
+  width={64}
+/>
+`;
+
+exports[`render outcome page should render graphqlcontainer loading 1`] = `
+<Loading
+  color="#fff"
+  delay={1000}
+  height={64}
+  type="spinningBubbles"
+  width={64}
+/>
+`;
+
+exports[`render outcome page should render graphqlcontainer loading 2`] = `
+<Loading
+  color="#fff"
+  delay={1000}
+  height={64}
+  type="spinningBubbles"
+  width={64}
+/>
+`;
+
+exports[`render outcome page should render outcome 1`] = `
+<withHelpersModifiers(Columns)
+  isCentered={true}
+>
+  <withHelpersModifiers(Column)
+    isSize="3/4"
+  >
+    <withHelpersModifiers(Box)>
+      <withHelpersModifiers(Title)
+        hasTextColor="black"
+        isSize={2}
+      >
+        Outcome
+      </withHelpersModifiers(Title)>
+      <Pie
+        data={
+          Object {
+            "datasets": Array [
+              Object {
+                "backgroundColor": Array [
+                  "hsl(348, 100%, 61%)",
+                  "hsl(204, 86%, 53%)",
+                  "hsl(48, 100%, 67%)",
+                ],
+                "data": Array [
+                  10,
+                  20,
+                  30,
+                ],
+              },
+            ],
+            "labels": Array [
+              "Red",
+              "Yellow",
+              "Blue",
+            ],
+          }
+        }
+        options={
+          Object {
+            "legend": Object {
+              "position": "right",
+            },
+          }
+        }
+      />
+    </withHelpersModifiers(Box)>
+  </withHelpersModifiers(Column)>
+</withHelpersModifiers(Columns)>
+`;

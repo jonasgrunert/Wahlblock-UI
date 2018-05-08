@@ -1,26 +1,22 @@
-import { graphql } from 'react-apollo';
 import { Box, Column, Columns, Container, Icon, Title } from 'bloomer';
 import { Pie } from 'react-chartjs-2';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import ReactLoading from 'react-loading';
-import { outcome } from '../../queries/query.gql';
 
 const randomColor = require('randomcolor');
 
 // default values
 const data = {
-  datasets: [{
-    data: [10, 20, 30],
-    backgroundColor: ['hsl(348, 100%, 61%)', 'hsl(204, 86%, 53%)', 'hsl(48, 100%, 67%)'],
-  }],
+  datasets: [
+    {
+      data: [10, 20, 30],
+      backgroundColor: ['hsl(348, 100%, 61%)', 'hsl(204, 86%, 53%)', 'hsl(48, 100%, 67%)'],
+    },
+  ],
 
   // These labels appear in the legend and in the tooltips when hovering different arcs
-  labels: [
-    'Red',
-    'Yellow',
-    'Blue',
-  ],
+  labels: ['Red', 'Yellow', 'Blue'],
 };
 
 const options = {
@@ -30,11 +26,13 @@ const options = {
 };
 
 // container for graph
-const Outcome = props => (
+export const Outcome = props => (
   <Columns isCentered>
     <Column isSize="3/4">
       <Box>
-        <Title hasTextColor="black" isSize={2}>Outcome</Title>
+        <Title hasTextColor="black" isSize={2}>
+          Outcome
+        </Title>
         <Pie data={props.data} options={props.options} />
       </Box>
     </Column>
@@ -43,7 +41,7 @@ const Outcome = props => (
 
 Outcome.propTypes = {
   data: PropTypes.shape({
-    datasets: PropTypes.arrayOf({
+    datasets: PropTypes.arrayOf(PropTypes.shape({
       data: PropTypes.arrayOf(PropTypes.number).isRequired,
       backgroundColor: PropTypes.arrayOf(PropTypes.string),
       borderColor: PropTypes.arrayOf(PropTypes.string),
@@ -51,7 +49,7 @@ Outcome.propTypes = {
       hoverbackgroundColor: PropTypes.arrayOf(PropTypes.string),
       hoverBorderColor: PropTypes.arrayOf(PropTypes.string),
       hoverBorderWidth: PropTypes.arrayOf(PropTypes.number),
-    }),
+    })),
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   options: PropTypes.object,
@@ -63,32 +61,30 @@ Outcome.defaultProps = {
 };
 
 // component for visualizing graphql data
-const GraphqlContainer = (props) => {
-  if (props.loading || props.data.blockchain === undefined) return <ReactLoading type="SpinningBubbles" />;
-  if (props.error !== undefined || props.data.blockchain.count.length === 0) return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
+export const GraphqlContainer = (props) => {
+  if (props.loading || props.data.blockchain === undefined) {
+    return <ReactLoading type="spinningBubbles" />;
+  }
+  if (props.error !== undefined || props.data.blockchain.count.length === 0) {
+    return <Icon isSize="large" className="fa fa-exclamation-triangle fa-3x" />;
+  }
   const colors = randomColor({
     count: props.data.blockchain.count.length,
     format: 'hsl',
   });
   return (
-    <Outcome
-      data={{
-        datasets: [{
-          data: props.data.blockchain.count,
-          backgroundColor: colors,
-        }],
-        labels: props.data.blockchain.possibilities,
-      }}
-    />
+    <Container hasTextAlign="centered">
+      <Outcome
+        data={{
+          datasets: [
+            {
+              data: props.data.blockchain.count,
+              backgroundColor: colors,
+            },
+          ],
+          labels: props.data.blockchain.possibilities,
+        }}
+      />
+    </Container>
   );
 };
-
-// warpping in container
-const OutcomeContainer = props => (
-  <Container hasTextAlign="centered">
-    <GraphqlContainer {...props} />
-  </Container>
-);
-
-// wrapping with graphql query
-export const OutcomeWrapper = graphql(outcome)(OutcomeContainer);

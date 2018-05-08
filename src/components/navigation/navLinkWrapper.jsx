@@ -6,9 +6,13 @@ import { action as toggleMenu } from 'redux-burger-menu';
 import PropTypes from 'prop-types';
 
 // Button displayed and rendered as active
-const NavLinkButton = props => (
+export const NavLinkButton = props => (
   <li>
-    <MenuLink onClick={props.onLink} isActive={props.location === props.link} hasTextColor={props.location === props.link ? 'white' : 'grey'} >
+    <MenuLink
+      onClick={props.onLink}
+      isActive={props.location === props.link}
+      hasTextColor={props.location === props.link ? 'white' : 'grey'}
+    >
       {props.name}
     </MenuLink>
   </li>

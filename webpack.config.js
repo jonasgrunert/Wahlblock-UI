@@ -26,7 +26,11 @@ module.exports = {
         loader: 'graphql-tag/loader',
       },
       {
+<<<<<<< HEAD
         test: /\.sass$/,
+=======
+        test: /\.scss$/,
+>>>>>>> 5c076a10932e79c0038e152a706466447556b731
         use: [
           {
             loader: 'style-loader', // creates style nodes from JS strings
