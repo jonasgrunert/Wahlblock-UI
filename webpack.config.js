@@ -1,13 +1,11 @@
+const path = require('path');
+
 module.exports = {
-  entry: [
-    'babel-polyfill',
-    'whatwg-fetch',
-    './src/index.jsx',
-  ],
+  entry: ['babel-polyfill', './src/index.jsx'],
   output: {
     filename: 'bundle.js',
     publicPath: '/build/',
-    path: __dirname + '/build',
+    path: `${__dirname}/build`,
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -27,14 +25,19 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
       },
-      { test: /\.scss$/, 
-        use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-        }, {
-          loader: "css-loader" // translates CSS into CommonJS
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        }]
+      {
+        test: /\.sass$/,
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader', // compiles Sass to CSS
+          },
+        ],
       },
     ],
   },
@@ -44,7 +47,10 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    'react': 'React',
+    react: 'React',
     'react-dom': 'ReactDOM',
+    'react-redux': 'ReactRedux',
+    redux: 'Redux',
+    'redux-form': 'ReduxForm',
   },
 };

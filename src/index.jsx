@@ -10,7 +10,7 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { middleware as fetchMiddleware } from 'react-redux-fetch';
 import { applyMiddleware, createStore } from 'redux';
 
-import './config/wahlblockStyles.scss';
+import './config/wahlblockStyles.sass';
 import MainWrapper from './components/main/main';
 import InfoContainer from './components/main/info';
 import { OutcomeWrapper } from './components/main/outcome';

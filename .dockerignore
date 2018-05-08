@@ -1,0 +1,13 @@
+Dockerfile
+.DS_Store
+.gitignore
+.dockerignore
+*.log
+node_modules/
+src/
+LICENSE
+README.md
+webpack.config.js
+yarn.lock
+package.json
+build/bundle.js.map
